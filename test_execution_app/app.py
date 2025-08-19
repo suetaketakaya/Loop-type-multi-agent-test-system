@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 テスト実行アプリケーション
-組み込みシステム向けテスト実行と人間による介入をサポート
+テストベーステスト実行と人間による介入をサポート
 """
 
 import os
@@ -19,7 +19,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'test-execution-secret-key'
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 # グローバル変数
 test_executions = {}
@@ -354,4 +354,4 @@ if __name__ == '__main__':
     print("📝 ポート: 5001")
     print("🌐 URL: http://localhost:5001")
     
-    socketio.run(app, host='0.0.0.0', port=5001, debug=True) 
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True, allow_unsafe_werkzeug=True) 
